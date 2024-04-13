@@ -1,0 +1,11 @@
+matrix.h:128:41:matrix_get	1
+matrix.h:141:27:matrix_set	1
+matrix.h:154:27:matrix_set_symmetric	1
+matrix.h:166:27:matrix_get_row_pointer	1
+matrix.h:178:31:matrix_get_column_copy	2
+matrix.h:204:27:matrix_get_row_copy	2
+matrix.h:224:27:matrix_copy	2
+matrix.h:245:31:matrix_sub	2
+matrix.h:266:31:matrix_sub_inplace_b	2
+matrix.h:286:31:matrix_add_inplace	2
+cholesky.c:15:5:cholesky_decompose_lower	8
