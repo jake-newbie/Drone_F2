@@ -29,6 +29,8 @@
 #include "MPU6050.h"
 #include "GPS.h"
 #include "usart.h"
+#include "tim.h"
+#include "PWM.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -60,27 +62,44 @@ uint8_t status;
 uint8_t flag_gps;
 mavlink_gps_raw_int_t data_GPS = {0};
 
+TIM_OC_InitTypeDef PWM_config;
+uint16_t throttle;
+uint16_t esc_1;
+uint16_t esc_2;
+uint16_t esc_3;
+uint16_t esc_4;
+uint32_t Chanel_1 = 1000;
+uint32_t Chanel_2 = 1000;
+uint32_t Chanel_3 = 1000;
+uint32_t Chanel_4 = 1000;
+uint32_t Chanel_5 = 1000;
+uint32_t Chanel_6 = 1000;
+
+uint32_t measured_time;
+uint8_t chanel_seclect_counter;
+
+
 /* USER CODE END Variables */
 /* Definitions for defaultTask */
 osThreadId_t defaultTaskHandle;
 const osThreadAttr_t defaultTask_attributes = {
   .name = "defaultTask",
   .stack_size = 512 * 4,
-  .priority = (osPriority_t) osPriorityNormal,
+  .priority = (osPriority_t) osPriorityBelowNormal,
 };
 /* Definitions for _BMP180 */
 osThreadId_t _BMP180Handle;
 const osThreadAttr_t _BMP180_attributes = {
   .name = "_BMP180",
   .stack_size = 512 * 4,
-  .priority = (osPriority_t) osPriorityBelowNormal,
-};
-/* Definitions for _MPU6050 */
-osThreadId_t _MPU6050Handle;
-const osThreadAttr_t _MPU6050_attributes = {
-  .name = "_MPU6050",
-  .stack_size = 512 * 4,
   .priority = (osPriority_t) osPriorityNormal,
+};
+/* Definitions for _IMU */
+osThreadId_t _IMUHandle;
+const osThreadAttr_t _IMU_attributes = {
+  .name = "_IMU",
+  .stack_size = 512 * 4,
+  .priority = (osPriority_t) osPriorityHigh,
 };
 /* Definitions for _GPS */
 osThreadId_t _GPSHandle;
@@ -88,6 +107,13 @@ const osThreadAttr_t _GPS_attributes = {
   .name = "_GPS",
   .stack_size = 512 * 4,
   .priority = (osPriority_t) osPriorityNormal,
+};
+/* Definitions for _main */
+osThreadId_t _mainHandle;
+const osThreadAttr_t _main_attributes = {
+  .name = "_main",
+  .stack_size = 512 * 4,
+  .priority = (osPriority_t) osPriorityHigh,
 };
 /* Definitions for UART2_Transmit_Lock */
 osMutexId_t UART2_Transmit_LockHandle;
@@ -102,8 +128,9 @@ const osMutexAttr_t UART2_Transmit_Lock_attributes = {
 
 void StartDefaultTask(void *argument);
 void BMP180_Func(void *argument);
-void MPU6050_Func(void *argument);
+void IMU_Func(void *argument);
 void GPS_Func(void *argument);
+void main_Func(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -143,11 +170,14 @@ void MX_FREERTOS_Init(void) {
   /* creation of _BMP180 */
   _BMP180Handle = osThreadNew(BMP180_Func, NULL, &_BMP180_attributes);
 
-  /* creation of _MPU6050 */
-  _MPU6050Handle = osThreadNew(MPU6050_Func, NULL, &_MPU6050_attributes);
+  /* creation of _IMU */
+  _IMUHandle = osThreadNew(IMU_Func, NULL, &_IMU_attributes);
 
   /* creation of _GPS */
   _GPSHandle = osThreadNew(GPS_Func, NULL, &_GPS_attributes);
+
+  /* creation of _main */
+  _mainHandle = osThreadNew(main_Func, NULL, &_main_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -206,35 +236,22 @@ void BMP180_Func(void *argument)
   /* USER CODE END BMP180_Func */
 }
 
-/* USER CODE BEGIN Header_MPU6050_Func */
+/* USER CODE BEGIN Header_IMU_Func */
 /**
-* @brief Function implementing the _MPU6050 thread.
+* @brief Function implementing the _IMU thread.
 * @param argument: Not used
 * @retval None
 */
-/* USER CODE END Header_MPU6050_Func */
-void MPU6050_Func(void *argument)
+/* USER CODE END Header_IMU_Func */
+void IMU_Func(void *argument)
 {
-  /* USER CODE BEGIN MPU6050_Func */
-	MPU6050_Init(&hi2c2);
+  /* USER CODE BEGIN IMU_Func */
   /* Infinite loop */
   for(;;)
   {
-	  mavlink_raw_imu_t raw_imu;
-	  status_mpu = Data_Ready();
-	  if(Data_Ready()){
-	  	  MPU6050_Read_All(&hi2c2, &data);
-	  	  roll  = data.KalmanAngleX;
-	  	  pitch = data.KalmanAngleY;
-	  	  if(osMutexAcquire(UART2_Transmit_LockHandle, 1000) == osOK){
-	  		  Transmit_raw_data_IMU(&data, raw_imu);
-	  	  }
-	  	 osMutexRelease(UART2_Transmit_LockHandle);
-	  }
-
-    osDelay(50);
+    osDelay(1000);
   }
-  /* USER CODE END MPU6050_Func */
+  /* USER CODE END IMU_Func */
 }
 
 /* USER CODE BEGIN Header_GPS_Func */
@@ -265,6 +282,24 @@ void GPS_Func(void *argument)
     osDelay(200);
   }
   /* USER CODE END GPS_Func */
+}
+
+/* USER CODE BEGIN Header_main_Func */
+/**
+* @brief Function implementing the _main thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_main_Func */
+void main_Func(void *argument)
+{
+  /* USER CODE BEGIN main_Func */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END main_Func */
 }
 
 /* Private application code --------------------------------------------------*/
