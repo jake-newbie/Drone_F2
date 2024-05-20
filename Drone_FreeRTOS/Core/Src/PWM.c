@@ -42,7 +42,6 @@ void PWM_Init(){
 	MX_TIM4_Init();
 	MX_TIM2_Init();
 	PWM_config.OCMode = TIM_OCMODE_PWM1;
-	PWM_config.Pulse = 0;
 	HAL_TIM_PWM_ConfigChannel(&htim4, &PWM_config, TIM_CHANNEL_1);
 	HAL_TIM_PWM_ConfigChannel(&htim4, &PWM_config, TIM_CHANNEL_2);
 	HAL_TIM_PWM_ConfigChannel(&htim4, &PWM_config, TIM_CHANNEL_3);

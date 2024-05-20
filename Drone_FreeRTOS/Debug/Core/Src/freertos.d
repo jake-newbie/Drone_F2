@@ -270,7 +270,7 @@ Core/Src/freertos.o: ../Core/Src/freertos.c \
  ../Middlewares/c_library_v2-master/common/../mavlink_get_info.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h \
  ../Core/Inc/GPS.h ../Core/Inc/usart.h ../Core/Inc/tim.h \
- ../Core/Inc/PWM.h ../Core/Inc/tim.h
+ ../Core/Inc/PWM.h ../Core/Inc/tim.h ../Core/Inc/pid.h
 ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h:
 ../Core/Inc/FreeRTOSConfig.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h:
@@ -551,3 +551,4 @@ Core/Src/freertos.o: ../Core/Src/freertos.c \
 ../Core/Inc/tim.h:
 ../Core/Inc/PWM.h:
 ../Core/Inc/tim.h:
+../Core/Inc/pid.h:
