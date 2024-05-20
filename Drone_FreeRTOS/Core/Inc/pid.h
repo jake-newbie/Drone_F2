@@ -11,7 +11,7 @@
 
 
 
-float calculate_pid(float pid_p_gain,float pid_i_gain,float pid_d_gain,float pid_eror_temp);
+float calculate_pid(float pid_p_gain,float pid_i_gain,float pid_d_gain,float pid_eror_temp,uint32_t channel_value);
 
 
 #endif /* INC_PID_H_ */
