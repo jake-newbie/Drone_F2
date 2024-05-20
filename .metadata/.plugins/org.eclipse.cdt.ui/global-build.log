@@ -1,0 +1,14 @@
+23:06:43 **** Incremental Build of configuration Debug for project Drone_FreeRTOS ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/pid.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -I../Middlewares -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/pid.d" -MT"Core/Src/pid.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/pid.o"
+arm-none-eabi-gcc -o "Drone_FreeRTOS.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\Git_Github\Drone_F2\Drone_FreeRTOS\STM32F411VETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Drone_FreeRTOS.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Drone_FreeRTOS.elf
+ 
+arm-none-eabi-size   Drone_FreeRTOS.elf 
+arm-none-eabi-objdump -h -S  Drone_FreeRTOS.elf  > "Drone_FreeRTOS.list"
+   text	   data	    bss	    dec	    hex	filename
+  79320	    684	  21544	 101548	  18cac	Drone_FreeRTOS.elf
+Finished building: default.size.stdout
+ 
+Finished building: Drone_FreeRTOS.list
+ 

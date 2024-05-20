@@ -11,10 +11,10 @@ float calculate_pid(float pid_p_gain,float pid_i_gain,float pid_d_gain, float gy
 	float pid_last_d_error = 0;
 	float pid_output;
 
-	if (channel_1 > 1508){
+	if (channel_value > 1508){
 		pid_setpoint = channel_value - 1508;
 	}
-  	else if (channel_1 < 1492){
+  	else if (channel_value < 1492){
 		pid_setpoint = channel_value - 1492;
 	}
 

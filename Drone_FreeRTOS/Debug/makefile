@@ -64,8 +64,8 @@ all: main-build
 main-build: Drone_FreeRTOS.elf secondary-outputs
 
 # Tool invocations
-Drone_FreeRTOS.elf Drone_FreeRTOS.map: $(OBJS) $(USER_OBJS) D:\Embedded\ STM32F4\Drone_FreeRTOS\STM32F411VETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "Drone_FreeRTOS.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\Embedded STM32F4\Drone_FreeRTOS\STM32F411VETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Drone_FreeRTOS.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Drone_FreeRTOS.elf Drone_FreeRTOS.map: $(OBJS) $(USER_OBJS) D:\Git_Github\Drone_F2\Drone_FreeRTOS\STM32F411VETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "Drone_FreeRTOS.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\Git_Github\Drone_F2\Drone_FreeRTOS\STM32F411VETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Drone_FreeRTOS.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

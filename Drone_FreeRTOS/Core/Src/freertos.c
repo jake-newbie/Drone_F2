@@ -334,8 +334,8 @@ void main_Func(void *argument)
   /* Infinite loop */
   for(;;)
   {
-	pid_output_pitch = calculate_pid(pid_p_gain_pitch, pid_i_gain_pitch, pid_d_gain_pitch, data.KalmanAngleY);
-	pid_output_roll  = calculate_pid(pid_p_gain_roll, pid_i_gain_roll, pid_d_gain_roll, data.KalmanAngleX);
+	pid_output_pitch = calculate_pid(pid_p_gain_pitch, pid_i_gain_pitch, pid_d_gain_pitch, data.KalmanAngleY, Chanel_2);
+	pid_output_roll  = calculate_pid(pid_p_gain_roll, pid_i_gain_roll, pid_d_gain_roll, data.KalmanAngleX, Chanel_1);
 	//pid_output_yaw   = calculate_pid(pid_p_gain, pid_i_gain, pid_d_gain, gyro_input)
 	throttle = Chanel_3;
 	if(throttle < 1090) throttle = 1000;

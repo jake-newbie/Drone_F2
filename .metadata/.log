@@ -1,0 +1,19 @@
+!SESSION 2024-05-20 22:54:54.472 -----------------------------------------------
+eclipse.buildId=Version 1.12.0
+java.version=11.0.17
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_GB
+Framework arguments:  D:\Git_Github\Drone_F2\Drone_FreeRTOS\.cproject
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 D:\Git_Github\Drone_F2\Drone_FreeRTOS\.cproject
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2024-05-20 22:55:28.100
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2024-05-20 22:55:28.116
+!MESSAGE Log4j2 initialized with config file D:\Git_Github\Drone_F2\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2024-05-20 22:55:31.742
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-05-20 22:55:49.241
+!MESSAGE Indexed 'Drone_FreeRTOS' (44 sources, 551 headers) in 14.4 sec: 47,726 declarations; 235,512 references; 7 unresolved inclusions; 1,309 syntax errors; 1,852 unresolved names (0.65%)
