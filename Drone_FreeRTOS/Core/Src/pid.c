@@ -4,13 +4,22 @@
 
 
 
-float calculate_pid(float pid_p_gain,float pid_i_gain,float pid_d_gain, float gyro_input){
+float calculate_pid(float pid_p_gain,float pid_i_gain,float pid_d_gain, float gyro_input,uint32_t channel_value){
 	float pid_setpoint = 0;
 	float pid_i_mem = 0;
 	int pid_max = 0;
 	float pid_last_d_error = 0;
 	float pid_output;
 
+	if (channel_1 > 1508){
+		pid_setpoint = channel_value - 1508;
+	}
+  	else if (channel_1 < 1492){
+		pid_setpoint = channel_value - 1492;
+	}
+
+	pid_setpoint /= 3.0;
+	
 	float pid_error_temp = gyro_input - pid_setpoint;
 	pid_i_mem += pid_i_gain*pid_error_temp;
 	if(pid_i_mem>pid_max){
