@@ -1,0 +1,20 @@
+// to understande more about the step, access to the link below or finding in "Joop Brooking" channel (youtube)
+// link: https://www.youtube.com/watch?v=JBvnB0279-Q&list=RDCMUCpJ5uKSLxP84TXQtwiRNm1g&index=6
+
+Step 1: testing the pid 
+  set all p_gain = 1 hold the quacopter to fell how the drone stablize itself
+  set pitch_p_gain and roll_p_gain to 0 agin
+  set yaw_p_gain = 3, yaw_i_gain = 0.02 to prevent yawing when tunning pid for roll and pitch
+Step 2: tunning d_gain for pitch and roll
+  increase the d_gain up to the point it become restless (vibration)
+  lower the d_gain to the point it run smooth again
+  continue to lower the d_gain by 25%
+Step 3: tunning p_gain for pitch and roll
+  increase the p_gain until it become overcompensate
+  lower the p_gain by 50%
+Step 4: tunning i_gain for pitch and roll
+  increase the i_gain to the point the quad_cop oscillate slowly
+  lower the i_gain by 50% 
+Step 5: tunning p_gain again to get wanted stablization
+  increase the p_gain again up to the point of fair oscillation
+  lower a few to get a good stable quad-cop
