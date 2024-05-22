@@ -76,6 +76,10 @@ uint32_t Chanel_4 = 1000;
 uint32_t Chanel_5 = 1000;
 uint32_t Chanel_6 = 1000;
 
+float last_pitch_d_error = 0;
+float last_roll_d_error = 0;
+float last_yaw_d_error = 0;
+
 uint32_t measured_time;
 uint8_t chanel_seclect_counter;
 
@@ -334,9 +338,9 @@ void main_Func(void *argument)
   /* Infinite loop */
   for(;;)
   {
-	pid_output_pitch = calculate_pid(pid_p_gain_pitch, pid_i_gain_pitch, pid_d_gain_pitch, data.KalmanAngleY, Chanel_2);
-	pid_output_roll  = calculate_pid(pid_p_gain_roll, pid_i_gain_roll, pid_d_gain_roll, data.KalmanAngleX, Chanel_1);
-	//pid_output_yaw   = calculate_pid(pid_p_gain, pid_i_gain, pid_d_gain, gyro_input)
+	pid_output_pitch = calculate_pid(pid_p_gain_pitch, pid_i_gain_pitch, pid_d_gain_pitch, data.KalmanAngleY, Chanel_2,last_pitch_d_error);
+	pid_output_roll  = calculate_pid(pid_p_gain_roll, pid_i_gain_roll, pid_d_gain_roll, data.KalmanAngleX, Chanel_1,last_roll_d_error);
+	//pid_output_yaw   = calculate_pid(pid_p_gain, pid_i_gain, pid_d_gain, gyro_input);
 	throttle = Chanel_3;
 	if(throttle < 1090) throttle = 1000;
 	if(throttle > 1977) throttle = 2000;
